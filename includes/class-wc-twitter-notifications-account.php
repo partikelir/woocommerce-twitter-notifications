@@ -24,6 +24,12 @@ class WC_Twitter_Notifications_Account {
 
 	}
 
+	/**
+	 * Prints Twitter username field on the checkout page.
+	 *
+	 * @param array $fields
+	 * @return array
+	 */
 	public function checkout_fields( $fields ) {
 		$user           = get_user_by( 'id', get_current_user_id() );
 		$twitter_handle = esc_attr( get_the_author_meta( 'account_twitter_notifications', $user->ID ) );
@@ -40,6 +46,11 @@ class WC_Twitter_Notifications_Account {
 		return $fields;
 	}
 
+	/**
+	 * Prints Twitter username field on the edit account page.
+	 *
+	 * @return void
+	 */
 	public function account_fields() {
 		$user           = get_user_by( 'id', get_current_user_id() );
 		$twitter_handle = esc_attr( get_the_author_meta( 'account_twitter_notifications', $user->ID ) );
@@ -51,6 +62,12 @@ class WC_Twitter_Notifications_Account {
 		<?php
 	}
 
+	/**
+	 * Prints Twitter username field on the edit profile admin page.
+	 *
+	 * @param WP_User $user
+	 * @return void
+	 */
 	public function profile_fields( $user ) {
 		?>
 
@@ -70,6 +87,12 @@ class WC_Twitter_Notifications_Account {
 		<?php
 	}
 
+	/**
+	 * Saves Twitter username field from the edit profile admin page and the edit account page.
+	 *
+	 * @param int $user_id
+	 * @return void|bool False on failure
+	 */
 	public function save_profile_fields( $user_id ) {
 		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 			return false;
@@ -78,6 +101,12 @@ class WC_Twitter_Notifications_Account {
 		update_usermeta( $user_id, 'account_twitter_notifications', wc_clean( $_POST['account_twitter_notifications'] ) );
 	}
 
+	/**
+	 * Saves Twitter username field from the checkout page.
+	 *
+	 * @param array $posted
+	 * @return void
+	 */
 	public function save_checkout_fields( $posted ) {
 		if ( isset( $posted['twitter_notifications'] ) && ! empty( $posted['twitter_notifications'] ) ) {
 			$user_id = get_current_user_id();
