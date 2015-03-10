@@ -15,7 +15,7 @@
  * @author Nicola Mustone
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 // Include Woo functions
@@ -57,10 +57,9 @@ class WC_Twitter_Notifications {
 	/**
 	 * Twitter instance
 	 *
-	 * @var    object
-	 * @access protected
+	 * @var object
 	 */
-	protected $twitter = null;
+	public $twitter = null;
 
 	/**
 	 * @var    WC_Twitter_Notifications The single instance of the class
@@ -119,6 +118,7 @@ class WC_Twitter_Notifications {
 		$this->set_oauth_token();
 
 		require_once $this->plugin_path() . '/includes/class-wc-twitter-notifications-errors-handler.php';
+		require_once $this->plugin_path() . '/includes/class-wc-twitter-notifications-account.php';
 		require_once $this->plugin_path() . '/lib/autoload.php';
 
 		$this->twitter = new TwitterOAuth( $this->oauth['consumer_key'], $this->oauth['consumer_secret'], $this->oauth['access_token'], $this->oauth['access_token_secret'] );
